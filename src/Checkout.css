@@ -1,0 +1,25 @@
+.checkout {
+    display: flex;
+    padding: 20px;
+    background-color: white;
+    height: max-content;
+    justify-content: space-around;
+}
+.checkout__bannerImage {
+    height: 200px;
+    width: 100%;
+    object-fit: contain;
+}
+
+.checkout__title {
+    margin-right: 10px;
+    padding: 10px;
+    border-bottom: 1px solid lightgrey
+}
+
+.checkout__right {
+    position:sticky;
+    align-self:flex-start;
+    top: 72px;
+    margin-top:108px;
+}

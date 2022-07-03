@@ -1,0 +1,20 @@
+.checkoutproduct {
+    display: flex;
+    align-self: flex-end;
+}
+.checkoutproduct__right {
+    flex: 1 0;
+    text-align: right;
+    align-self: center;
+
+}
+
+.checkoutproduct__left {
+    
+}
+.checkoutproduct__left > img {
+    object-fit: contain;
+    transform: scale(0.8);
+    width:200px;
+    height: 200px;
+}
