@@ -3,6 +3,8 @@ import { Rating } from "@mui/material";
 import { useStateValue } from "./StateProvider";
 import "./Product.css";
 
+
+
 interface ProductProps {
   image: string;
   name: string;
@@ -12,10 +14,17 @@ interface ProductProps {
 function Product(props: ProductProps) {
   const { image, name, price, rating } = props;
   const [state, dispatch] = useStateValue();
+
   const addToCart = () => {
     dispatch({
       type: "ADD_TO_CART",
-      item: { image: image, name: name, price: price, rating: rating },
+      item: {
+        image: image,
+        name: name,
+        price: price,
+        rating: rating,
+        quantity: 1,
+      },
     });
   };
   return (

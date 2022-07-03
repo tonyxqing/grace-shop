@@ -6,15 +6,17 @@ export type Cart = {
   quantity: number;
 };
 
-export type ContextInterface = { cart: { [productName: string]: Cart } };
+export type ContextInterface = {
+  cart: { [productName: string]: Cart };
+};
 
 export type State = {
-  cart: { [productName: string]: Cart };
+  cart?: { [productName: string]: Cart };
 };
 
 export type Action =
   | { type: "ADD_TO_CART"; item: Cart }
-  | { type: "REMOVE_FROM_CART"; item: string };
+  | { type: "REMOVE_FROM_CART"; item: [string, number] };
 export type ContextType = [
   ContextInterface,
   (

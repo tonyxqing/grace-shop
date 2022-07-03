@@ -4,14 +4,23 @@ import "./Header.css";
 import { useTheme } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
-import { Link, Outlet } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useStateValue } from "./StateProvider";
-import { Cart } from "./types";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 function Header() {
+  const path = useLocation();
   const theme = useTheme();
   const [state, dispatch] = useStateValue();
-  return (
+  const auth = getAuth();
+  React.useEffect(() => {
+    onAuthStateChanged(auth, (auth) => {
+      console.log(auth);
+    });
+  }, []);
+
+  const noHeaderPaths = ["/login", "/register"];
+  return noHeaderPaths.includes(path.pathname) ? null : (
     <nav className="header">
       <Link to="/">
         <img className="header__logo" src={Logo} />
@@ -22,7 +31,7 @@ function Header() {
       </div>
 
       <div className="header__nav">
-        <Link to="/signin">
+        <Link to="/login">
           <div className="header__option">
             <span className="header__optionLineOne">Hello Guest</span>
             <span className="header__optionLineTwo">Sign In</span>

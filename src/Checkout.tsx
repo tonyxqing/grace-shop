@@ -11,6 +11,13 @@ function Checkout() {
   const totalCost = React.useRef<number>(0);
   const totalQuantity = React.useRef<number>(0);
 
+    totalCost.current = 0;
+    totalQuantity.current = 0;
+    Object.values(state.cart).forEach((item: any) => {
+      totalCost.current = totalCost.current + item.quantity * item.price;
+      totalQuantity.current = totalQuantity.current + item.quantity;
+    });
+
   return (
     <div className="checkout">
       <div className="checkout__left">
@@ -25,8 +32,8 @@ function Checkout() {
         <div className="checkout__shoppingCart">
           {Object.values(state.cart).map((product: any) => {
             const { image, name, rating, price, quantity } = product;
-            totalCost.current = totalCost.current + price * quantity;
-            totalQuantity.current = quantity + totalQuantity.current;
+
+            if (quantity < 0 || !name) return;
             return (
               <CheckoutProduct
                 image={image}
