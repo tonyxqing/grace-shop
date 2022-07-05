@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useStateValue } from "./StateProvider";
+import React, {useEffect, useState} from "react";
+import {useStateValue} from "./StateProvider";
 import CheckoutProduct from "./CheckoutProduct";
-import { Link } from "react-router-dom";
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import {Link} from "react-router-dom";
+import {CardElement, useStripe, useElements} from "@stripe/react-stripe-js";
 import "./Payment.css";
 import CurrencyFormat from "react-currency-format";
 import axios from "./axios";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 function Payment() {
   const navigate = useNavigate();
@@ -41,7 +41,6 @@ function Payment() {
     if (totalQuantity.current > 0) getClientSecret();
   }, [state]);
 
-  console.log(clientSecret);
   async function handleSubmit(e: any) {
     e.preventDefault();
     setProcessing(true);
@@ -51,7 +50,7 @@ function Payment() {
           card: elements?.getElement(CardElement)!,
         },
       })
-      .then(({ paymentIntent }) => {
+      .then(({paymentIntent}) => {
         // payment intent = paymentcomfirmation
         setSucceeded(true);
         setError(null);
@@ -83,7 +82,7 @@ function Payment() {
           </div>
           <div className="payment__reviewItems">
             {Object.values(state.cart).map((product: any) => {
-              const { image, name, rating, price, quantity } = product;
+              const {image, name, rating, price, quantity} = product;
 
               if (quantity < 0 || !name) return;
               return (
@@ -118,6 +117,7 @@ function Payment() {
                 <button
                   disabled={processing || disabled || succeeded}
                   className="payment__submitButton"
+                  onClick={handleSubmit}
                 >
                   <span>{processing ? "Processing..." : "Buy Now"}</span>
                 </button>

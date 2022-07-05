@@ -7,6 +7,8 @@ import Login from "./Login";
 import { SnackbarProvider } from "notistack";
 import Registration from "./Registration";
 import Payment from "./Payment";
+import Account from "./Account";
+import Orders from "./Orders";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 
@@ -28,8 +30,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="login" element={<Login />} />
-          <Route path="account" element={<></>} />
-          <Route path="history" element={<></>} />
+          <Route path="account" element={<Account />} />
+          <Route path="history" element={<Orders />} />
           <Route path="checkout" element={<Checkout />} />
           <Route
             path="payment"

@@ -1,8 +1,12 @@
-const functions = require("firebase-functions");
-const express = require("express");
-const cors = require("cors");
-const stripe = require("stripe")(
-  "sk_test_51LHupqI2HkViCwBLy2sZo5a3Jlsmy5YzygOTKjyRW7jNbvJf7uE5cvGz5wNKGHVqxjgfjKAnonswj4myIZHgtcZx00iElE7wqO"
+import * as functions from "firebase-functions";
+import * as express from "express";
+import * as cors from "cors";
+import Stripe from "stripe";
+
+const stripe = new Stripe(
+    "sk_test_51LHupqI2HkViCwBLy2sZo5a3Jlsmy5YzygOT" +
+    "KjyRW7jNbvJf7uE5cvGz5wNKGHVqxjgfjKAnonswj4myIZHgtcZx00iElE7wqO",
+    {apiVersion: "2020-08-27"}
 );
 
 // API
@@ -11,7 +15,7 @@ const stripe = require("stripe")(
 const app = express();
 
 // MiddleWares
-app.use(cors({ origin: true }));
+app.use(cors({origin: true}));
 app.use(express.json());
 
 // API Routes
