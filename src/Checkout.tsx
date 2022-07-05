@@ -11,21 +11,21 @@ function Checkout() {
   const totalCost = React.useRef<number>(0);
   const totalQuantity = React.useRef<number>(0);
 
-    totalCost.current = 0;
-    totalQuantity.current = 0;
-    Object.values(state.cart).forEach((item: any) => {
-      totalCost.current = totalCost.current + item.quantity * item.price;
-      totalQuantity.current = totalQuantity.current + item.quantity;
-    });
+  totalCost.current = 0;
+  totalQuantity.current = 0;
+  Object.values(state.cart).forEach((item: any) => {
+    totalCost.current = totalCost.current + item.quantity * item.price;
+    totalQuantity.current = totalQuantity.current + item.quantity;
+  });
 
   return (
     <div className="checkout">
       <div className="checkout__left">
-        <img
+        {/* <img
           src={RewardsProgramBanner}
           alt="join the rewards program for up to 50% off"
           className="checkout__bannerImage"
-        />
+        /> */}
         <div className="checkout__title">
           <h3>Your Shopping Cart</h3>
         </div>

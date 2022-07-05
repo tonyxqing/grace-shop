@@ -1,21 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import Logo from "./assets/graceshop.png";
 import "./Header.css";
-import { useTheme } from "@mui/material";
+import { useTheme, Menu, MenuItem } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useStateValue } from "./StateProvider";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { useSnackbar } from "notistack";
 
 function Header() {
+  const navigate = useNavigate();
   const path = useLocation();
   const theme = useTheme();
   const [state, dispatch] = useStateValue();
   const auth = getAuth();
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const handleClick = (event: any) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   React.useEffect(() => {
     onAuthStateChanged(auth, (auth) => {
-      console.log(auth);
+      if (auth) {
+        // user logged in or was logged in
+        dispatch({ type: "ADD_USER", item: auth });
+      } else {
+        // user is logged out
+        dispatch({ type: "ADD_USER", item: null });
+      }
     });
   }, []);
 
@@ -31,35 +48,79 @@ function Header() {
       </div>
 
       <div className="header__nav">
-        <Link to="/login">
-          <div className="header__option">
-            <span className="header__optionLineOne">Hello Guest</span>
-            <span className="header__optionLineTwo">Sign In</span>
+        {state.user ? (
+          <div className="header__option" onClick={handleClick}>
+            <span className="header__optionLineOne">{state.user.email}</span>
+            <span className="header__optionLineTwo">Sign Out</span>
           </div>
-        </Link>
-        <Link to="/history">
+        ) : (
           <div className="header__option">
+            <Link className="header__link" to="/login">
+              <span className="header__optionLineOne">Hello Guest</span>
+              <span className="header__optionLineTwo">Sign In</span>
+            </Link>
+          </div>
+        )}
+
+        <div className="header__option">
+          <Link className="header__link" to="/history">
             <span className="header__optionLineOne">Returns</span>
             <span className="header__optionLineTwo">& Orders</span>
-          </div>
-        </Link>
-        <Link to="/account">
-          <div className="header__option">
+          </Link>
+        </div>
+        <div className="header__option">
+          <Link className="header__link" to="/account">
             <span className="header__optionLineOne">Your</span>
             <span className="header__optionLineTwo">Account</span>
-          </div>
-        </Link>
-        <Link to="/checkout">
-          <div className="header__optionBasket">
+          </Link>
+        </div>
+        <div className="header__optionBasket">
+          <Link className="header__linkBasket" to="/checkout">
             <ShoppingBasketIcon className="header__optionBasketIcon"></ShoppingBasketIcon>
             <span className="header__optionBasketCount">
               {Object.values(state.cart).reduce((prev: number, cur: any) => {
                 return cur.quantity + prev;
               }, 0)}
             </span>
-          </div>
-        </Link>
+          </Link>
+        </div>
       </div>
+      <Menu
+        className="header__accountMenu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+      >
+        <MenuItem
+          className="header__accountMenuItem"
+          onClick={() => {
+            navigate("/");
+            handleClose();
+          }}
+        >
+          Home
+        </MenuItem>
+
+        <MenuItem
+          className="header__accountMenuItem"
+          onClick={() => {
+            navigate("/account");
+            handleClose();
+          }}
+        >
+          My account
+        </MenuItem>
+        <MenuItem
+          className="header__accountMenuItem"
+          onClick={() => {
+            signOut(auth);
+            enqueueSnackbar("Logged out of " + state.user?.email);
+            handleClose();
+          }}
+        >
+          Logout
+        </MenuItem>
+      </Menu>
     </nav>
   );
 }

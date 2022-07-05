@@ -5,7 +5,9 @@ import "./Login.css";
 import { SignIntoAccount } from "./firebase";
 import { Password } from "@mui/icons-material";
 import {useNavigate} from "react-router-dom"
+import {useSnackbar} from "notistack"
 function Login() {
+  const {enqueueSnackbar, closeSnackbar} = useSnackbar()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -13,7 +15,7 @@ function Login() {
 
   const signIn = (e: any) => {
     e.preventDefault();
-    SignIntoAccount(email, password, navigate);
+    SignIntoAccount(email, password, navigate, enqueueSnackbar);
     // fancy firebase login
   };
 

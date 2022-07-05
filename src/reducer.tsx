@@ -1,6 +1,6 @@
 import { ContextInterface, Cart, ContextType, State, Action } from "./types";
 
-export const initialState = { cart: [] };
+export const initialState = { cart: {} };
 
 // export const reducer = (
 //   state: ContextInterface,
@@ -73,12 +73,14 @@ function reducer(state: State, action: Action): State {
           },
         },
       };
-
+    case "ADD_USER":
+      return {
+        ...state,
+        user: action.item,
+      };
     default:
       return {
-        cart: {
-          
-        },
+        cart: {},
       };
   }
 }

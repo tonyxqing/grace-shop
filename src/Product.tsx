@@ -2,9 +2,8 @@ import React from "react";
 import { Rating } from "@mui/material";
 import { useStateValue } from "./StateProvider";
 import "./Product.css";
-
-
-
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import { useSnackbar } from "notistack";
 interface ProductProps {
   image: string;
   name: string;
@@ -14,7 +13,7 @@ interface ProductProps {
 function Product(props: ProductProps) {
   const { image, name, price, rating } = props;
   const [state, dispatch] = useStateValue();
-
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const addToCart = () => {
     dispatch({
       type: "ADD_TO_CART",
@@ -26,19 +25,26 @@ function Product(props: ProductProps) {
         quantity: 1,
       },
     });
+    enqueueSnackbar(`Added ${name} to cart!`);
   };
   return (
     <div className="product__info">
-      <p className="product__title">{name}</p>
-      <Rating size="small" sx={{ color: "#ca96a9" }} value={rating} />
-      <img src={image} />
-      <p className="product__price">
-        <small>$</small>
-        <strong>{price}</strong>
-      </p>
-      <button className="product__addToBasket" onClick={addToCart}>
-        Add to Cart
-      </button>
+      <h4 className="product__title">{name}</h4>
+      <div onClick={addToCart} className="product__img">
+        <div className="product__image">
+          <img src={image} />
+        </div>
+        <div className="product__imageIcon">
+          <AddCircleOutlineIcon className="icon" />
+        </div>
+      </div>
+      <div className="produce_priceContainer">
+        <p className="product__price">
+          <small>$</small>
+          <strong>{price}</strong>
+        </p>
+        <Rating size="small" sx={{ color: "#ca96a9" }} value={rating} />
+      </div>
     </div>
   );
 }

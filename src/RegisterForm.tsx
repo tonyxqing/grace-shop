@@ -4,7 +4,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import { useSnackbar } from "notistack";
 import "./RegisterForm.css";
 function RegisterForm() {
   const [first, setFirst] = useState("");
@@ -12,10 +12,11 @@ function RegisterForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
 
   const register = (e: any) => {
     e.preventDefault();
-    RegisterAccount(email, password, navigate);
+    RegisterAccount(email, password, navigate, enqueueSnackbar);
     // fancy firebase login
   };
 

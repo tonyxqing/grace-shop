@@ -18,7 +18,6 @@ import {
   where,
   addDoc,
 } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCCtixFafbafZNBu2hyWSaMLxhCc7mpocU",
@@ -36,29 +35,40 @@ export const analytics = getAnalytics(firebaseApp);
 export function RegisterAccount(
   email: string,
   password: string,
-  navigate: any
+  navigate: any,
+  enqueueSnackbar: any
 ) {
   const auth = getAuth();
   createUserWithEmailAndPassword(auth, email, password)
     .then((auth: any) => {
       if (auth) {
+        enqueueSnackbar("Account created successfully");
         navigate("/");
       }
     })
-    .catch((error: any) => alert(error.message));
+    .catch((error: any) => {
+      enqueueSnackbar("Error occurred - account not created.");
+      alert(error.message);
+    });
 }
 
 export function SignIntoAccount(
   email: string,
   password: string,
-  navigate: any
+  navigate: any,
+  enqueueSnackbar: any
 ) {
   const auth = getAuth();
   signInWithEmailAndPassword(auth, email, password)
     .then((auth) => {
       if (auth) {
+        enqueueSnackbar("Signed into " + email);
+
         navigate("/");
       }
     })
-    .catch((error: any) => alert(error.message));
+    .catch((error: any) => {
+      enqueueSnackbar("Error occurred - not logged in.");
+      alert(error.message);
+    });
 }

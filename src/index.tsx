@@ -2,13 +2,9 @@ import React, { useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
-import Header from "./Header";
-import Home from "./Home";
-import Checkout from "./Checkout";
-import Login from "./Login";
+import App from "./App";
+
 import StateProvider from "./StateProvider";
-import Registration from "./Registration";
 import reducer, { initialState } from "./reducer";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -34,18 +30,8 @@ const sampleContext = {
 };
 root.render(
   <React.StrictMode>
-    <StateProvider reducer={reducer} initialState={sampleContext}>
-      <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="login" element={<Login />} />
-          <Route path="account" element={<></>} />
-          <Route path="history" element={<></>} />
-          <Route path="checkout" element={<Checkout />} />
-          <Route path="register" element={<Registration />} />
-        </Routes>
-      </Router>
+    <StateProvider reducer={reducer} initialState={initialState}>
+      <App />
     </StateProvider>
   </React.StrictMode>
 );

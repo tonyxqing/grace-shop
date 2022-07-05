@@ -25,3 +25,8 @@
     border-color: #144f41 #0e372e #0b2b24;
     border-radius: 2px;
 }
+
+.subtotal__checkoutButton:hover {
+    color: rgb(223, 223, 223);
+    background-color: #0e372e;
+}
