@@ -34,6 +34,8 @@ function RegisterForm() {
         <h5>First Name:</h5>
         <input
           type="text"
+          placeholder="Jon"
+
           value={first}
           onChange={(e: any) => {
             setFirst(e.target.value);
@@ -42,6 +44,8 @@ function RegisterForm() {
         <h5>Last Name:</h5>
         <input
           type="text"
+          placeholder="Smith"
+
           value={last}
           onChange={(e: any) => {
             setLast(e.target.value);
@@ -50,6 +54,8 @@ function RegisterForm() {
         <h5>E-mail:</h5>
         <input
           type="text"
+          placeholder="jon.smith@email.com"
+
           value={email}
           onChange={(e: any) => {
             setEmail(e.target.value);
@@ -57,7 +63,8 @@ function RegisterForm() {
         />{" "}
         <h5>Password:</h5>
         <input
-          type="text"
+          type="password"
+          placeholder="password"
           value={password}
           onChange={(e: any) => {
             setPassword(e.target.value);

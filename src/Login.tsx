@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import GraceShopLogo from "./assets/graceshop.png";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
 import "./Login.css";
-import { SignIntoAccount } from "./firebase";
-import { Password } from "@mui/icons-material";
-import {useNavigate} from "react-router-dom"
-import {useSnackbar} from "notistack"
+import {SignIntoAccount} from "./firebase";
+import {Password} from "@mui/icons-material";
+import {useNavigate} from "react-router-dom";
+import {useSnackbar} from "notistack";
 function Login() {
-  const {enqueueSnackbar, closeSnackbar} = useSnackbar()
+  const {enqueueSnackbar, closeSnackbar} = useSnackbar();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -38,9 +38,19 @@ function Login() {
         <h1>Sign-in</h1>
         <form>
           <h5>E-mail:</h5>
-          <input type="text" value={email} onChange={handleEmailChange} />
+          <input
+            type="text"
+            placeholder="jon.smith@email.com"
+            value={email}
+            onChange={handleEmailChange}
+          />
           <h5>Password:</h5>
-          <input type="text" value={password} onChange={handlePasswordChange} />
+          <input
+            type="password"
+            placeholder="password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
           <button type="submit" onClick={signIn} className="login__formButton">
             Sign In
           </button>

@@ -51,14 +51,6 @@
     height: inherit;
 }
 
-.header__option {
-    display: flex;
-    flex-direction: column;
-    height: inherit;
-    padding-right: 16px;
-    padding-left: 16px;
-    color: #175c4c;
-}
 
 .header__link {
     display: flex;
@@ -66,9 +58,11 @@
     align-items: center;
     flex-direction: column;
     text-decoration: none;
+    padding-right: 16px;
+    padding-left: 16px;
 }
 
-.header__option:hover {
+.header__link:hover {
     background-color: #f0bace;
     cursor: pointer;
 }

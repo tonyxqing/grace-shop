@@ -7,23 +7,24 @@ export type Cart = {
 };
 
 export type ContextInterface = {
-  cart: { [productName: string]: Cart };
+  cart: {[productName: string]: Cart};
   user?: any;
 };
 
 export type State = {
-  cart?: { [productName: string]: Cart };
+  cart?: {[productName: string]: Cart};
   user?: any;
 };
 
 export type Action =
-  | { type: "ADD_TO_CART"; item: Cart }
-  | { type: "REMOVE_FROM_CART"; item: [string, number] }
-  | { type: "ADD_USER"; item: any };
+  | {type: "ADD_TO_CART"; item: Cart}
+  | {type: "REMOVE_FROM_CART"; item: [string, number]}
+  | {type: "ADD_USER"; item: any}
+  | {type: "EMPTY_CART"; item: null};
 export type ContextType = [
   ContextInterface,
   (
     state: ContextInterface,
-    action: { type: string; item: Cart }
+    action: {type: string; item: Cart}
   ) => ContextInterface
 ];

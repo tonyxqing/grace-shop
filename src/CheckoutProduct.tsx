@@ -1,11 +1,11 @@
 import React from "react";
-import { Rating } from "@mui/material";
+import {Rating} from "@mui/material";
 import "./CheckoutProduct.css";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveShoppingCartIcon from "@mui/icons-material/RemoveShoppingCart";
-import { IconButton } from "@mui/material";
-import { useStateValue } from "./StateProvider";
+import {IconButton} from "@mui/material";
+import {useStateValue} from "./StateProvider";
 interface ProductProps {
   image: string;
   name: string;
@@ -15,7 +15,7 @@ interface ProductProps {
 }
 function CheckoutProduct(props: ProductProps) {
   const [state, dispatch] = useStateValue();
-  const { image, name, price, rating, quantity } = props;
+  const {image, name, price, rating, quantity} = props;
   const addToCart = () => {
     dispatch({
       type: "ADD_TO_CART",
@@ -45,7 +45,7 @@ function CheckoutProduct(props: ProductProps) {
             <RemoveShoppingCartIcon />
           </IconButton>
           <IconButton
-            disabled={!quantity}
+            disabled={quantity <= 1}
             onClick={() => removeFromCart(name, 1)}
           >
             <RemoveIcon />
@@ -56,7 +56,7 @@ function CheckoutProduct(props: ProductProps) {
           </IconButton>
         </div>
         <h4 className="product__title">{name}</h4>
-        <Rating size="small" sx={{ color: "#ca96a9" }} value={rating} />
+        <Rating size="small" sx={{color: "#ca96a9"}} value={rating} />
         <p className="product__price">
           <small>$</small>
           <strong>{price}</strong>

@@ -1,9 +1,14 @@
 import React from "react";
-
+import "./Orders.css";
 function Orders() {
   return (
     <div className="orders">
-      <h1>Your Orders</h1>
+      <div className="orders__container">
+        <div className="orders__title">Your Orders</div>
+        <div className="orders__section">
+          <div className="orders__previous"></div>
+        </div>
+      </div>
     </div>
   );
 }
